@@ -59,13 +59,13 @@ import axios from "axios";
     bigknell
 */
 
-const followersArray = [
-  "SJMucho",
-  "Dazmen",
-  "kwmorlock",
-  "rutrut6969",
-  "c00kamunga",
-];
+// const followersArray = [
+//   "SJMucho",
+//   "Dazmen",
+//   "kwmorlock",
+//   "rutrut6969",
+//   "c00kamunga",
+// ];
 
 const gitCard = (user) => {
   const newCard = document.createElement("div");
@@ -99,9 +99,21 @@ const gitCard = (user) => {
   cardInfo.append(userName, location, profile, followers, following, bio);
   profile.appendChild(gitUrl);
 
+  newCard.addEventListener("click", () => {
+    newCard.classList.toggle("selected");
+  });
+
   return newCard;
 };
 
-axios.get(`https://api.github.com/users/SJMucho`).then(() => {
-  console.log("data");
-});
+console.log(gitCard);
+
+axios
+  .get(`https://api.github.com/users/SJMucho`)
+  .then((res) => {
+    let newGitUser = document.querySelector(".cards");
+    newGitUser.appendChild(gitCard(res));
+  })
+  .catch((err) => {
+    console.log(err);
+  });

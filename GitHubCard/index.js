@@ -75,10 +75,33 @@ const gitCard = (user) => {
   const userName = document.createElement("p");
   const location = document.createElement("p");
   const profile = document.createElement("p");
-  const link = document.createElement("a");
+  const gitUrl = document.createElement("a");
   const followers = document.createElement("p");
   const following = document.createElement("p");
   const bio = document.createElement("p");
 
-  return gitCard;
+  image.src = user.data.avatar_url;
+  name.textContent = user.data.name;
+  userName.textContent = user.data.login;
+  location.textContent = user.data.location;
+  profile.textContent = user.data.repos_url;
+  gitUrl.textContent = user.data.url;
+  followers.textContent = user.data.followers_url;
+  following.textContent = user.data.following_url;
+  bio.textContent = user.data.bio;
+
+  newCard.classList.add("card");
+  cardInfo.classList.add("card-info");
+  name.classList.add("card-info");
+  userName.classList.add("username");
+
+  newCard.append(image, cardInfo);
+  cardInfo.append(userName, location, profile, followers, following, bio);
+  profile.appendChild(gitUrl);
+
+  return newCard;
 };
+
+axios.get(`https://api.github.com/users/SJMucho`).then(() => {
+  console.log("data");
+});
